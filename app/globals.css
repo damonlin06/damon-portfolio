@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+/* ─── Light mode design tokens ─── */
+:root {
+  --color-bg: #f5f5f7;
+  --color-surface: #ffffff;
+  --color-primary: #1d1d1f;
+  --color-secondary: rgba(0, 0, 0, 0.48);
+  --color-accent: #0071e3;
+  --color-accent-link: #0066cc;
+  --color-border: rgba(0, 0, 0, 0.1);
+  --nav-bg-glass: rgba(245, 245, 247, 0.85);
+  --nav-height: 48px;
+}
+
+/* ─── Dark mode design tokens ─── */
+[data-theme="dark"] {
+  --color-bg: #000000;
+  --color-surface: #1c1c1e;
+  --color-primary: #f5f5f7;
+  --color-secondary: rgba(255, 255, 255, 0.48);
+  --color-accent: #2997ff;
+  --color-accent-link: #2997ff;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --nav-bg-glass: rgba(0, 0, 0, 0.85);
+}
+
+/* ─── Register tokens as Tailwind utilities ─── */
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-primary: var(--color-primary);
+  --color-secondary: var(--color-secondary);
+  --color-accent: var(--color-accent);
+  --color-border: var(--color-border);
+}
+
+/* ─── Base reset & typography ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
+    Helvetica, Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.47;
+  letter-spacing: -0.374px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue",
+    Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ─── Fade-in animation ─── */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease both;
+}
+
+.animate-fade-in-up-delay-1 {
+  animation: fadeInUp 0.5s ease 0.1s both;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fadeInUp 0.5s ease 0.2s both;
+}
+
+.animate-fade-in-up-delay-3 {
+  animation: fadeInUp 0.5s ease 0.3s both;
+}
