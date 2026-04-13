@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { projects } from '@/src/data/projects';
-import { Button } from '@/src/components/ui/Button';
 import { Tag } from '@/src/components/ui/Tag';
 
 interface Props {
@@ -135,27 +134,6 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       {/* Description */}
       <div className="mb-12">{renderDescription(project.description)}</div>
-
-      {/* Links */}
-      {(project.liveUrl ?? project.repoUrl) && (
-        <div className="flex flex-wrap gap-4">
-          {project.liveUrl && (
-            <Button href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              View Live
-            </Button>
-          )}
-          {project.repoUrl && (
-            <Button
-              href={project.repoUrl}
-              variant="secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Source
-            </Button>
-          )}
-        </div>
-      )}
     </article>
   );
 }
