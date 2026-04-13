@@ -5,14 +5,14 @@ export default function HomePage() {
     <section
       className="flex-1 flex flex-col items-center justify-center text-center px-6 py-32"
       style={{
-        backgroundColor: '#000000',
-        color: '#ffffff',
-        minHeight: 'calc(100vh - 48px)',
+        backgroundColor: 'var(--color-bg)',
+        color: 'var(--color-primary)',
+        minHeight: 'calc(100vh - var(--nav-height))',
       }}
     >
       <p
         className="text-xs font-semibold tracking-widest uppercase mb-5 animate-fade-in-up"
-        style={{ color: 'rgba(255,255,255,0.5)' }}
+        style={{ color: 'var(--color-secondary)' }}
       >
         Software Engineer
       </p>
@@ -25,7 +25,7 @@ export default function HomePage() {
           fontSize: 'clamp(2.5rem, 6vw, 3.5rem)',
           lineHeight: 1.07,
           letterSpacing: '-0.28px',
-          color: '#ffffff',
+          color: 'var(--color-primary)',
         }}
       >
         Damon Lin
@@ -37,7 +37,7 @@ export default function HomePage() {
           fontSize: '1.0625rem',
           lineHeight: 1.47,
           letterSpacing: '-0.374px',
-          color: 'rgba(255,255,255,0.72)',
+          color: 'var(--color-secondary)',
         }}
       >
         Building elegant, high-performance software. Passionate about clean
