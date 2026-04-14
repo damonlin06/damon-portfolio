@@ -9,7 +9,7 @@ const navLinks = [
   { href: '/resume', label: 'Resume' },
   { href: '/portfolio', label: 'Portfolio' },
   { href: '/case-study', label: 'Case Study' },
-  { href: '/skills', label: 'Skills' },
+  { href: '/skills', label: 'Technical Skills' },
   { href: '/contact', label: 'Contact' },
 ] as const;
 
