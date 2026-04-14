@@ -27,11 +27,6 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   if (!project) notFound();
 
-  const formattedDate = new Date(project.date + '-01').toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-  });
-
   // Simple markdown-like renderer for the description field
   const renderDescription = (text: string) =>
     text.split('\n\n').map((block, i) => {
@@ -65,6 +60,24 @@ export default async function ProjectDetailPage({ params }: Props) {
           </ul>
         );
       }
+      if (block.startsWith('![')) {
+        const match = block.match(/^!\[([^\]]*)\]\(([^)]+)\)/);
+        if (match) {
+          const imgSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}${match[2]}`;
+          return (
+            <div key={i} className="relative w-full rounded-2xl overflow-hidden my-6" style={{ lineHeight: 0 }}>
+              <Image
+                src={imgSrc}
+                alt={match[1]}
+                width={1400}
+                height={600}
+                className="w-full h-auto"
+                style={{ borderRadius: '1rem' }}
+              />
+            </div>
+          );
+        }
+      }
       return (
         <p
           key={i}
@@ -87,22 +100,6 @@ export default async function ProjectDetailPage({ params }: Props) {
         <span aria-hidden="true">←</span> Back to Portfolio
       </Link>
 
-      {/* Hero image */}
-      {project.thumbnail && (
-        <div
-          className="relative w-full rounded-2xl overflow-hidden mb-10"
-          style={{ paddingTop: '56.25%' }}
-        >
-          <Image
-            src={project.thumbnail}
-            alt={project.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
-
       {/* Header */}
       <header className="mb-8">
         <h1
@@ -117,12 +114,6 @@ export default async function ProjectDetailPage({ params }: Props) {
         >
           {project.title}
         </h1>
-        <p
-          className="mt-2"
-          style={{ color: 'var(--color-secondary)', fontSize: '0.875rem' }}
-        >
-          {formattedDate}
-        </p>
       </header>
 
       {/* Tags */}
