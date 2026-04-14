@@ -6,28 +6,28 @@ export interface SkillCategory {
 
 export const skills: SkillCategory[] = [
   {
-    category: 'Languages',
+    category: 'Programming Languages & Frameworks',
     level: 'proficient',
-    skills: ['TypeScript', 'JavaScript', 'Python', 'SQL'],
+    skills: ['Python', 'SQL', 'Apache Spark (PySpark, Spark SQL)', 'dbt'],
   },
   {
-    category: 'Frameworks & Libraries',
+    category: 'Data Warehousing & Databases',
     level: 'proficient',
-    skills: ['React', 'Next.js', 'Node.js', 'Tailwind CSS'],
+    skills: ['Redshift', 'BigQuery', 'Databricks (Unity Catalog, Delta Lake)', 'PostgreSQL', 'MySQL'],
   },
   {
-    category: 'Tools & Platforms',
+    category: 'Cloud Platforms',
     level: 'proficient',
-    skills: ['Git', 'GitHub', 'VS Code', 'Figma'],
+    skills: ['AWS (Redshift, EMR, S3, Glue, Athena, ECR, MWAA, Lambda)', 'GCP (BigQuery, Cloud Storage, Datastore)'],
   },
   {
-    category: 'Cloud & Infrastructure',
-    level: 'familiar',
-    skills: ['AWS', 'Docker', 'Vercel', 'PostgreSQL'],
+    category: 'DevOps & Orchestration',
+    level: 'proficient',
+    skills: ['CI/CD (GitHub Actions, Jenkins)', 'Git', 'Docker', 'Apache Airflow'],
   },
   {
-    category: 'Practices',
-    level: 'familiar',
-    skills: ['REST APIs', 'GraphQL', 'CI/CD', 'Agile'],
+    category: 'Data Quality & Governance',
+    level: 'proficient',
+    skills: ['Great Expectations', 'dbt tests'],
   },
 ];
