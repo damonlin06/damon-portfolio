@@ -13,26 +13,43 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'project-one',
-    title: 'Project One',
+    title: 'Finance Performance dbt Pipeline',
     shortDescription:
-      'A brief description of project one and what problem it solves.',
-    description: `## Overview
+      'Consolidated multi-channel financial data for Hong Kong and Taiwan, eliminating manual reconciliation and delivering a centralized, unified dashboard for finance and operations stakeholders.',
+    description: `## Project Goals
 
-This is the full description of Project One. Replace this with real project details.
+Consolidate multi-channel financial data for Hong Kong and Taiwan, reduce manual reconciliation, and provide stakeholders with a centralized, unified dashboard.
 
-## Key Features
+## Key Stakeholders
 
-- Feature one that makes this project stand out
-- Feature two showcasing technical depth
-- Feature three demonstrating impact
+- Finance: HK & TW Finance teams
+- Operations: Store leaders, Ecommerce Leader
 
-## Tech Stack
+## Role & Contributions
 
-Built with Next.js, TypeScript, and Tailwind CSS.`,
-    thumbnail: '',
-    tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-    liveUrl: 'https://example.com',
-    repoUrl: 'https://github.com/damonlin06',
+Project owner & Data architect
+
+- Collaborated with cross-functional data owners and end-users to define and document technical data requirements.
+- Designed and implemented a 20+ model Medallion Architecture using dbt and Databricks.
+- Delivered a Tableau-ready exposure layer model, enabling data analysts to efficiently build dashboards.
+
+## Challenges & Solutions
+
+Challenge 1 — Regional KPI Inconsistency: Facilitated cross-regional alignment meetings to standardize KPI definitions across HK and TW finance teams.
+
+Challenge 2 — Fragmented Data Sources and Disparate Formats: Engineered a standardized ingestion pipeline and unified schema layer to establish a single source of truth for downstream modeling.
+
+## Architecture Diagram
+
+![Finance Performance dbt Pipeline — Medallion Architecture](/images/projects/finance_dbt_data_models.png)
+
+## Benefits & Value
+
+- Reduced manual reconciliation effort.
+- Improved reporting consistency and accuracy across regional business units.
+- Single source of truth for daily KPI reporting.`,
+    thumbnail: '/images/projects/finance_dbt_data_models.png',
+    tags: ['dbt', 'Databricks', 'Tableau', 'SQL', 'Data Engineering', 'Data Modeling'],
     date: '2025-11',
   },
   {
