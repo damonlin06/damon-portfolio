@@ -9,26 +9,28 @@ export interface WorkEntry {
 
 export const work: WorkEntry[] = [
   {
-    company: 'Company Name',
-    role: 'Software Engineer',
-    startDate: 'Jan 2024',
+    company: 'Decathlon',
+    role: 'Data Engineer',
+    startDate: 'Jan 2022',
     endDate: 'Present',
-    location: 'San Francisco, CA',
+    location: 'Hong Kong',
     bullets: [
-      'Led development of a key product feature that improved user retention by 20%.',
-      'Collaborated with cross-functional teams to define and ship new APIs.',
-      'Mentored junior engineers and conducted code reviews.',
+      'Finance Performance dbt Pipeline: Architected a scalable dbt-on-Databricks pipeline to centralize multi-channel financial data for Hong Kong and Taiwan teams, reducing data fragmentation and manual reconciliation time. Built a 20+ model Medallion architecture to support daily KPI reporting on Tableau.',
+      'BigQuery to Databricks Migration Automation: Architected and scaled an automated migration factory to convert 100+ Taiwan production pipelines from BigQuery (GCP) to Databricks dbt (AWS) across finance, retail, and supply chain domains. Engineered an Anchor-Based Slicing framework to preserve referential integrity across complex multi-table JOIN graphs, enabling deterministic data sampling and eliminating terabyte-scale data movement. Built an AI-powered migration system leveraging Gemini to parse legacy SQL, generate optimized dbt models, and self-heal through validation feedback loops, improving migration speed and scalability.',
+      'Membership Program Data Pipeline: Architected a hybrid-cloud pipeline across AWS and GCP, processing daily transaction data from Redshift and S3 using PySpark on EMR to compute membership points, with results persisted to GCP Datastore for downstream applications. Achieved a 98% pipeline success rate and maintained over 80% unit and functional test coverage. Implemented scheduling, orchestration, and monitoring with Apache Airflow.',
+      'Infrastructure & Pipeline Migration: Led end-to-end migrations to modernize legacy data infrastructure, migrating R pipelines to PySpark and dbt, and transitioning orchestration from Jenkins to Apache Airflow and Databricks, improving system reliability, scalability, and observability.',
+      'Leadership & APAC Collaboration: Mentored junior Data Engineers in APAC regions, conducted technical interviews for data engineering candidates, and shared best practices to improve code modularity and pipeline performance.',
     ],
   },
   {
-    company: 'Previous Company',
-    role: 'Software Engineer Intern',
-    startDate: 'Jun 2023',
-    endDate: 'Dec 2023',
-    location: 'Remote',
+    company: 'PCCW Media Limited (Now TV)',
+    role: 'Junior Data Engineer',
+    startDate: 'Oct 2018',
+    endDate: 'Dec 2021',
+    location: 'Hong Kong',
     bullets: [
-      'Built and deployed microservices handling 1M+ daily requests.',
-      'Reduced page load time by 35% through performance optimization.',
+      'Data Pipelines (AWS / GCP): Designed and implemented scalable data ingestion pipelines integrating on-premises server logs with cloud-based data sources across AWS and GCP, enabling business intelligence capabilities for a major OTT media platform.',
+      'Metadata Similarity Search API: Developed a Python-based REST API for metadata similarity search using Levenshtein distance, improving search accuracy and efficiency.',
     ],
   },
 ];

@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { projects } from '@/src/data/projects';
-import { Button } from '@/src/components/ui/Button';
 import { Tag } from '@/src/components/ui/Tag';
 
 interface Props {
@@ -28,11 +27,6 @@ export default async function ProjectDetailPage({ params }: Props) {
 
   if (!project) notFound();
 
-  const formattedDate = new Date(project.date + '-01').toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-  });
-
   // Simple markdown-like renderer for the description field
   const renderDescription = (text: string) =>
     text.split('\n\n').map((block, i) => {
@@ -54,6 +48,72 @@ export default async function ProjectDetailPage({ params }: Props) {
           </h2>
         );
       }
+      if (block.startsWith('C: ')) {
+        // Parse consecutive C: / S: pairs into challenge+solution cards
+        const lines = block.split('\n').filter(Boolean);
+        const pairs: { challenge: string; solution: string }[] = [];
+        for (let k = 0; k < lines.length; k++) {
+          if (lines[k].startsWith('C: ')) {
+            const challenge = lines[k].replace(/^C: /, '');
+            const solution = lines[k + 1]?.startsWith('S: ')
+              ? lines[++k].replace(/^S: /, '')
+              : '';
+            pairs.push({ challenge, solution });
+          }
+        }
+        return (
+          <div key={i} className="flex flex-col gap-4 mb-6">
+            {pairs.map((pair, j) => (
+              <div
+                key={j}
+                style={{
+                  borderLeft: '2px solid var(--color-border, #e0e0e0)',
+                  paddingLeft: '1rem',
+                }}
+              >
+                <div className="mb-1">
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      fontSize: '0.6875rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      color: 'var(--color-secondary)',
+                      marginBottom: '0.2rem',
+                    }}
+                  >
+                    Challenge
+                  </span>
+                  <p style={{ color: 'var(--color-primary)', fontSize: '1.0625rem', lineHeight: 1.5, margin: 0 }}>
+                    {pair.challenge}
+                  </p>
+                </div>
+                {pair.solution && (
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        fontSize: '0.6875rem',
+                        fontWeight: 600,
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase',
+                        color: 'var(--color-accent)',
+                        marginBottom: '0.2rem',
+                      }}
+                    >
+                      Solution
+                    </span>
+                    <p style={{ color: 'var(--color-primary)', fontSize: '1.0625rem', lineHeight: 1.5, margin: 0 }}>
+                      {pair.solution}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        );
+      }
       if (block.startsWith('- ')) {
         const items = block.split('\n').filter((l) => l.startsWith('- '));
         return (
@@ -65,6 +125,24 @@ export default async function ProjectDetailPage({ params }: Props) {
             ))}
           </ul>
         );
+      }
+      if (block.startsWith('![')) {
+        const match = block.match(/^!\[([^\]]*)\]\(([^)]+)\)/);
+        if (match) {
+          const imgSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}${match[2]}`;
+          return (
+            <div key={i} className="relative w-full rounded-2xl overflow-hidden my-6" style={{ lineHeight: 0 }}>
+              <Image
+                src={imgSrc}
+                alt={match[1]}
+                width={1400}
+                height={600}
+                className="w-full h-auto"
+                style={{ borderRadius: '1rem' }}
+              />
+            </div>
+          );
+        }
       }
       return (
         <p
@@ -88,22 +166,6 @@ export default async function ProjectDetailPage({ params }: Props) {
         <span aria-hidden="true">←</span> Back to Portfolio
       </Link>
 
-      {/* Hero image */}
-      {project.thumbnail && (
-        <div
-          className="relative w-full rounded-2xl overflow-hidden mb-10"
-          style={{ paddingTop: '56.25%' }}
-        >
-          <Image
-            src={project.thumbnail}
-            alt={project.title}
-            fill
-            className="object-cover"
-            priority
-          />
-        </div>
-      )}
-
       {/* Header */}
       <header className="mb-8">
         <h1
@@ -118,12 +180,6 @@ export default async function ProjectDetailPage({ params }: Props) {
         >
           {project.title}
         </h1>
-        <p
-          className="mt-2"
-          style={{ color: 'var(--color-secondary)', fontSize: '0.875rem' }}
-        >
-          {formattedDate}
-        </p>
       </header>
 
       {/* Tags */}
@@ -135,27 +191,6 @@ export default async function ProjectDetailPage({ params }: Props) {
 
       {/* Description */}
       <div className="mb-12">{renderDescription(project.description)}</div>
-
-      {/* Links */}
-      {(project.liveUrl ?? project.repoUrl) && (
-        <div className="flex flex-wrap gap-4">
-          {project.liveUrl && (
-            <Button href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-              View Live
-            </Button>
-          )}
-          {project.repoUrl && (
-            <Button
-              href={project.repoUrl}
-              variant="secondary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Source
-            </Button>
-          )}
-        </div>
-      )}
     </article>
   );
 }

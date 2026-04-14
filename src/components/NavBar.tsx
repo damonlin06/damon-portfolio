@@ -8,7 +8,8 @@ import { ThemeToggle } from '@/src/components/ThemeToggle';
 const navLinks = [
   { href: '/resume', label: 'Resume' },
   { href: '/portfolio', label: 'Portfolio' },
-  { href: '/skills', label: 'Skills' },
+  { href: '/case-study', label: 'Case Study' },
+  { href: '/skills', label: 'Technical Skills' },
   { href: '/contact', label: 'Contact' },
 ] as const;
 
@@ -25,21 +26,19 @@ export function NavBar() {
         borderColor: 'var(--color-border)',
       }}
     >
-      <nav
-        className="max-w-5xl mx-auto px-6 h-full flex items-center justify-between"
-        aria-label="Primary navigation"
-      >
-        {/* Logo */}
+      {/* Full-width wrapper for edge-to-edge logo and toggle */}
+      <div className="relative h-full flex items-center px-6" role="navigation" aria-label="Primary navigation">
+        {/* Logo — flush left */}
         <Link
           href="/"
-          className="font-semibold text-[15px] tracking-tight transition-opacity hover:opacity-80"
+          className="font-bold text-base tracking-tight transition-opacity hover:opacity-80"
           style={{ color: 'var(--color-primary)', textDecoration: 'none' }}
         >
-          Damon Lin
+          Damon
         </Link>
 
-        {/* Desktop nav links */}
-        <ul className="hidden md:flex items-center gap-7 list-none m-0 p-0">
+        {/* Desktop nav links — absolutely centered in the full header */}
+        <ul className="hidden md:flex items-center gap-7 list-none m-0 p-0 absolute left-1/2 -translate-x-1/2">
           {navLinks.map(({ href, label }) => {
             const isActive = pathname === href || pathname.startsWith(href + '/');
             return (
@@ -47,10 +46,9 @@ export function NavBar() {
                 <Link
                   href={href}
                   aria-current={isActive ? 'page' : undefined}
-                  className="text-sm transition-colors hover:opacity-100"
+                  className="text-base font-semibold transition-colors hover:opacity-100"
                   style={{
                     color: isActive ? 'var(--color-accent)' : 'var(--color-primary)',
-                    fontWeight: isActive ? 600 : 400,
                     opacity: isActive ? 1 : 0.8,
                     textDecoration: 'none',
                   }}
@@ -62,8 +60,8 @@ export function NavBar() {
           })}
         </ul>
 
-        {/* Right controls */}
-        <div className="flex items-center gap-1">
+        {/* Right controls — flush right via ml-auto */}
+        <div className="ml-auto flex items-center gap-1">
           <ThemeToggle />
 
           {/* Hamburger — mobile only */}
@@ -106,7 +104,7 @@ export function NavBar() {
             )}
           </button>
         </div>
-      </nav>
+      </div>
 
       {/* Mobile dropdown menu */}
       {menuOpen && (

@@ -23,7 +23,7 @@ export function Card({ project }: CardProps) {
       <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
         {project.thumbnail ? (
           <Image
-            src={project.thumbnail}
+            src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}${project.thumbnail}`}
             alt={project.title}
             fill
             className="object-cover"

@@ -68,7 +68,7 @@ export default function SkillsPage() {
       </section>
 
       {/* Familiar */}
-      <section>
+      {familiar.length > 0 && <section>
         <h2
           style={{
             fontSize: '0.75rem',
@@ -102,7 +102,7 @@ export default function SkillsPage() {
             </div>
           ))}
         </div>
-      </section>
+      </section>}
     </div>
   );
 }

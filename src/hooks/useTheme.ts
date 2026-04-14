@@ -23,12 +23,11 @@ function themeReducer(state: ThemeState, action: ThemeAction): ThemeState {
 }
 
 export function useTheme() {
-  const [state, dispatch] = useReducer(themeReducer, { theme: 'light', mounted: false });
+  const [state, dispatch] = useReducer(themeReducer, { theme: 'dark', mounted: false });
 
   useEffect(() => {
     const stored = localStorage.getItem('theme') as Theme | null;
-    const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial: Theme = stored ?? (systemDark ? 'dark' : 'light');
+    const initial: Theme = stored ?? 'dark';
     document.documentElement.setAttribute('data-theme', initial);
     dispatch({ type: 'init', theme: initial });
   }, []);
