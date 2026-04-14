@@ -54,45 +54,82 @@ Challenge 2 — Fragmented Data Sources and Disparate Formats: Engineered a stan
   },
   {
     slug: 'project-two',
-    title: 'Project Two',
+    title: 'BigQuery to Databricks Migration Automation',
     shortDescription:
-      'A brief description of project two and the impact it had.',
-    description: `## Overview
+      'Migrated over 100 production data pipelines from Google BigQuery (GCP) to Databricks dbt (AWS) to unify the data ecosystem for Decathlon Taiwan.',
+    description: `## Project Goals
 
-This is the full description of Project Two. Replace this with real project details.
+Migrate over 100 production data pipelines/scheduled queries from Google BigQuery (GCP) to Databricks dbt (AWS) to unify the data ecosystem for Decathlon Taiwan.
 
-## Key Features
+## Key Stakeholders
 
-- Feature one
-- Feature two
-- Feature three
+- United Data platform team
+- Domain teams (finance, retail, supply chain)
 
-## Tech Stack
+## Role & Contributions
 
-Built with React, Node.js, and PostgreSQL.`,
-    thumbnail: '',
-    tags: ['React', 'Node.js', 'PostgreSQL'],
-    repoUrl: 'https://github.com/damonlin06',
+Project owner & Data engineer
+
+- Created Anchor-Based Slicing framework to intelligently slice complex multi-table JOIN graphs while preserving referential integrity.
+- Built an AI-powered pipeline using Gemini to parse legacy SQL and generate optimized dbt models.
+- Implemented self-healing validation feedback loops to catch and fix migration errors automatically.
+
+## Challenges & Solutions
+
+Challenge 1 — Complex JOIN Graphs: Complex multi-table JOIN graphs caused referential integrity breaks during data sampling. Built an Anchor-Based Slicing framework to trace and ensure consistent row selection across tables.
+
+Challenge 2 — Manual SQL Conversion: Manual SQL conversion was slow and error-prone. Developed an AI pipeline with self-healing validation loops to auto-correct generated models.
+
+## Architecture Diagram
+
+![BigQuery to Databricks Migration Automation](/images/projects/bq_databricks_automation.png)
+
+## Benefits & Value
+
+- Reduced manual engineering effort significantly.
+- Minimized data movement, saving cost and ensuring data accuracy.
+- Unified all Taiwan-market pipelines onto a modern dbt and Delta Lake architecture.`,
+    thumbnail: '/images/projects/bq_databricks_automation.png',
+    tags: ['dbt', 'Databricks', 'BigQuery', 'SQL', 'Python', 'Gemini AI', 'Data Engineering'],
     date: '2025-06',
   },
   {
     slug: 'project-three',
-    title: 'Project Three',
-    shortDescription: 'A brief description of project three.',
-    description: `## Overview
+    title: 'Membership Program Data Pipeline',
+    shortDescription:
+      'Compute membership points daily from transaction data and serve results to downstream customer-facing apps with high reliability across a hybrid AWS and GCP architecture.',
+    description: `## Project Goals
 
-This is the full description of Project Three. Replace this with real project details.
+Compute membership points daily from transaction data and serve results to downstream customer-facing apps with high reliability.
 
-## Key Features
+## Key Stakeholders
 
-- Feature one
-- Feature two
+- Membership & CRM product team
+- Frontend and backend developers
+- Retail operation team
 
-## Tech Stack
+## Role & Contributions
 
-Built with Python, FastAPI, and Docker.`,
-    thumbnail: '',
-    tags: ['Python', 'FastAPI', 'Docker'],
+Data engineer
+
+- Designed the hybrid-cloud architecture spanning AWS (Redshift/S3/EMR) and GCP (GCS/Datastore).
+- Built comprehensive unit and functional test suite.
+- Implemented end-to-end pipeline scheduling, orchestration, and monitoring with Apache Airflow.
+
+## Challenges & Solutions
+
+Challenge 1 — Cross-Cloud Reliability: Cross-cloud data movement and reliability requirements. Designed and implemented a solution using PySpark and Airflow, supported by comprehensive unit and functional tests and data validation mechanisms, to ensure reliable cross-cloud data movement.
+
+## Architecture Diagram
+
+![Membership Program Data Pipeline — Airflow DAG](/images/projects/membership_airflow_DAG.png)
+
+## Benefits & Value
+
+- Membership points calculated accurately and delivered daily.
+- Enabled personalized marketing campaigns and improved member experience.`,
+    thumbnail: '/images/projects/membership_airflow_DAG.png',
+    tags: ['Apache Airflow', 'PySpark', 'AWS', 'GCP', 'Redshift', 'EMR', 'Data Engineering'],
     date: '2024-12',
   },
 ];
