@@ -19,7 +19,7 @@ export default function RootLayout({
         {/* Inline script: set data-theme before first paint to avoid flash */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('theme'),d=window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',t||(d?'dark':'light'));}catch(e){}`,
+            __html: `try{var t=localStorage.getItem('theme');document.documentElement.setAttribute('data-theme',t||'dark');}catch(e){}`,
           }}
         />
         {/* Skip to main content — keyboard accessibility */}
