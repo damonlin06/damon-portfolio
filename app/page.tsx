@@ -14,7 +14,7 @@ export default function HomePage() {
         className="text-xs font-semibold tracking-widest uppercase mb-5 animate-fade-in-up"
         style={{ color: 'var(--color-secondary)' }}
       >
-        Software Engineer
+        Data Engineer
       </p>
 
       <h1
@@ -40,7 +40,7 @@ export default function HomePage() {
           color: 'var(--color-secondary)',
         }}
       >
-        Building elegant, high-performance software. Passionate about clean
+        Building elegant, high-performance data solutions. Passionate about clean
         code, great user experiences, and solving meaningful problems.
       </p>
 
