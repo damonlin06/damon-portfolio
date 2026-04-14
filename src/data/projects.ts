@@ -35,9 +35,10 @@ Project owner & Data architect
 
 ## Challenges & Solutions
 
-Challenge 1 — Regional KPI Inconsistency: Facilitated cross-regional alignment meetings to standardize KPI definitions across HK and TW finance teams.
-
-Challenge 2 — Fragmented Data Sources and Disparate Formats: Engineered a standardized ingestion pipeline and unified schema layer to establish a single source of truth for downstream modeling.
+C: Regional KPI Inconsistency — HK and TW finance teams had inconsistent KPI definitions, causing reporting discrepancies.
+S: Facilitated cross-regional alignment meetings to standardize KPI definitions across both teams.
+C: Fragmented Data Sources — Financial data came from multiple channels with disparate formats, making unified modeling difficult.
+S: Engineered a standardized ingestion pipeline and unified schema layer to establish a single source of truth.
 
 ## Architecture Diagram
 
@@ -76,9 +77,10 @@ Project owner & Data engineer
 
 ## Challenges & Solutions
 
-Challenge 1 — Complex JOIN Graphs: Complex multi-table JOIN graphs caused referential integrity breaks during data sampling. Built an Anchor-Based Slicing framework to trace and ensure consistent row selection across tables.
-
-Challenge 2 — Manual SQL Conversion: Manual SQL conversion was slow and error-prone. Developed an AI pipeline with self-healing validation loops to auto-correct generated models.
+C: Complex JOIN Graphs — Multi-table JOIN graphs caused referential integrity breaks during data sampling.
+S: Built an Anchor-Based Slicing framework to trace and ensure consistent row selection across tables.
+C: Manual SQL Conversion — Converting legacy BigQuery SQL to dbt was slow and error-prone.
+S: Developed an AI pipeline with self-healing validation loops to auto-correct generated models.
 
 ## Architecture Diagram
 
@@ -118,7 +120,8 @@ Data engineer
 
 ## Challenges & Solutions
 
-Challenge 1 — Cross-Cloud Reliability: Cross-cloud data movement and reliability requirements. Designed and implemented a solution using PySpark and Airflow, supported by comprehensive unit and functional tests and data validation mechanisms, to ensure reliable cross-cloud data movement.
+C: Cross-Cloud Reliability — Cross-cloud data movement introduced reliability and consistency risks.
+S: Designed a PySpark and Airflow solution backed by comprehensive unit and functional tests and data validation mechanisms to ensure reliable cross-cloud data movement.
 
 ## Architecture Diagram
 

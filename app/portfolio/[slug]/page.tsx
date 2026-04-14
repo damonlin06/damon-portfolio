@@ -48,6 +48,72 @@ export default async function ProjectDetailPage({ params }: Props) {
           </h2>
         );
       }
+      if (block.startsWith('C: ')) {
+        // Parse consecutive C: / S: pairs into challenge+solution cards
+        const lines = block.split('\n').filter(Boolean);
+        const pairs: { challenge: string; solution: string }[] = [];
+        for (let k = 0; k < lines.length; k++) {
+          if (lines[k].startsWith('C: ')) {
+            const challenge = lines[k].replace(/^C: /, '');
+            const solution = lines[k + 1]?.startsWith('S: ')
+              ? lines[++k].replace(/^S: /, '')
+              : '';
+            pairs.push({ challenge, solution });
+          }
+        }
+        return (
+          <div key={i} className="flex flex-col gap-4 mb-6">
+            {pairs.map((pair, j) => (
+              <div
+                key={j}
+                style={{
+                  borderLeft: '2px solid var(--color-border, #e0e0e0)',
+                  paddingLeft: '1rem',
+                }}
+              >
+                <div className="mb-1">
+                  <span
+                    style={{
+                      display: 'inline-block',
+                      fontSize: '0.6875rem',
+                      fontWeight: 600,
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                      color: 'var(--color-secondary)',
+                      marginBottom: '0.2rem',
+                    }}
+                  >
+                    Challenge
+                  </span>
+                  <p style={{ color: 'var(--color-primary)', fontSize: '1.0625rem', lineHeight: 1.5, margin: 0 }}>
+                    {pair.challenge}
+                  </p>
+                </div>
+                {pair.solution && (
+                  <div style={{ marginTop: '0.5rem' }}>
+                    <span
+                      style={{
+                        display: 'inline-block',
+                        fontSize: '0.6875rem',
+                        fontWeight: 600,
+                        letterSpacing: '0.06em',
+                        textTransform: 'uppercase',
+                        color: 'var(--color-accent)',
+                        marginBottom: '0.2rem',
+                      }}
+                    >
+                      Solution
+                    </span>
+                    <p style={{ color: 'var(--color-primary)', fontSize: '1.0625rem', lineHeight: 1.5, margin: 0 }}>
+                      {pair.solution}
+                    </p>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        );
+      }
       if (block.startsWith('- ')) {
         const items = block.split('\n').filter((l) => l.startsWith('- '));
         return (
