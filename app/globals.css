@@ -118,3 +118,14 @@ img {
 .animate-fade-in-up-delay-3 {
   animation: fadeInUp 0.5s ease 0.3s both;
 }
+
+/* ─── Image zoom lightbox animations ─── */
+@keyframes zoomOverlayIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes zoomImageIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to   { opacity: 1; transform: scale(1); }
+}
