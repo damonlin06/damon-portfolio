@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { projects } from '@/src/data/projects';
 import { Tag } from '@/src/components/ui/Tag';
+import { ZoomableImage } from '@/src/components/ui/ZoomableImage';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -131,16 +132,7 @@ export default async function ProjectDetailPage({ params }: Props) {
         if (match) {
           const imgSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}${match[2]}`;
           return (
-            <div key={i} className="relative w-full rounded-2xl overflow-hidden my-6" style={{ lineHeight: 0 }}>
-              <Image
-                src={imgSrc}
-                alt={match[1]}
-                width={1400}
-                height={600}
-                className="w-full h-auto"
-                style={{ borderRadius: '1rem' }}
-              />
-            </div>
+            <ZoomableImage key={i} src={imgSrc} alt={match[1]} width={1400} height={600} />
           );
         }
       }

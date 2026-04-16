@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { caseStudies } from '@/src/data/caseStudies';
 import { Tag } from '@/src/components/ui/Tag';
+import { ZoomableImage } from '@/src/components/ui/ZoomableImage';
 
 export const metadata: Metadata = {
   title: 'Case Study — Damon Lin',
@@ -46,16 +47,7 @@ function renderDescription(text: string) {
       if (match) {
         const imgSrc = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}${match[2]}`;
         return (
-          <div key={i} className="relative w-full rounded-2xl overflow-hidden my-6" style={{ lineHeight: 0 }}>
-            <Image
-              src={imgSrc}
-              alt={match[1]}
-              width={1400}
-              height={600}
-              className="w-full h-auto"
-              style={{ borderRadius: '1rem' }}
-            />
-          </div>
+          <ZoomableImage key={i} src={imgSrc} alt={match[1]} width={1400} height={600} />
         );
       }
     }
@@ -98,15 +90,6 @@ export default function CaseStudyPage() {
 
   return (
     <article className="max-w-3xl mx-auto px-6 py-20">
-      {/* Back link */}
-      <Link
-        href="/portfolio"
-        className="inline-flex items-center gap-1 text-sm mb-10 transition-opacity hover:opacity-75"
-        style={{ color: 'var(--color-accent)', textDecoration: 'none' }}
-      >
-        <span aria-hidden="true">←</span> Back to Portfolio
-      </Link>
-
       {/* Header */}
       <header className="mb-4">
         <p
