@@ -48,8 +48,13 @@ export function Footer() {
 
   return (
     <footer
-      className="border-t mt-auto"
-      style={{ borderColor: 'var(--color-border)' }}
+      className="mt-auto border-t"
+      style={{
+        borderColor: 'var(--glass-border)',
+        background: 'var(--glass-bg)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+      }}
     >
       <div className="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
         <p

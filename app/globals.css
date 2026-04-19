@@ -1,28 +1,52 @@
 @import "tailwindcss";
 
-/* ─── Light mode design tokens ─── */
+/* ─── Shared design tokens ─── */
 :root {
-  --color-bg: #f5f5f7;
-  --color-surface: #ffffff;
-  --color-primary: #1d1d1f;
-  --color-secondary: rgba(0, 0, 0, 0.48);
-  --color-accent: #0071e3;
-  --color-accent-link: #0066cc;
-  --color-border: rgba(0, 0, 0, 0.1);
-  --nav-bg-glass: rgba(245, 245, 247, 0.85);
-  --nav-height: 72px;
+  --nav-height: 52px;
+  --nav-top: 16px;
+  --content-offset: calc(var(--nav-height) + var(--nav-top) + 16px);
 }
 
-/* ─── Dark mode design tokens ─── */
+/* ─── Light mode tokens ─── */
+[data-theme="light"] {
+  --color-bg: #f5f5f7;
+  --color-surface: rgba(255, 255, 255, 0.55);
+  --color-primary: #1d1d1f;
+  --color-secondary: rgba(0, 0, 0, 0.5);
+  --color-accent: #0071e3;
+  --color-accent-link: #0066cc;
+  --color-border: rgba(0, 0, 0, 0.08);
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-bg-hover: rgba(255, 255, 255, 0.65);
+  --glass-bg-card: rgba(255, 255, 255, 0.38);
+  --glass-border: rgba(255, 255, 255, 0.75);
+  --glass-border-subtle: rgba(0, 0, 0, 0.07);
+  --glass-highlight: rgba(255, 255, 255, 0.9);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.1), 0 2px 8px rgba(0, 0, 0, 0.06);
+  --glass-shadow-card: 0 4px 24px rgba(31, 38, 135, 0.08), 0 1px 4px rgba(0, 0, 0, 0.05);
+  --glass-shadow-hover: 0 16px 48px rgba(31, 38, 135, 0.15), 0 4px 16px rgba(0, 0, 0, 0.09);
+}
+
+/* ─── Dark mode tokens ─── */
 [data-theme="dark"] {
   --color-bg: #000000;
-  --color-surface: #1c1c1e;
-  --color-primary: #f5f5f7;
-  --color-secondary: rgba(255, 255, 255, 0.48);
+  --color-surface: rgba(255, 255, 255, 0.06);
+  --color-primary: rgba(255, 255, 255, 0.92);
+  --color-secondary: rgba(255, 255, 255, 0.5);
   --color-accent: #2997ff;
   --color-accent-link: #2997ff;
-  --color-border: rgba(255, 255, 255, 0.1);
-  --nav-bg-glass: rgba(0, 0, 0, 0.85);
+  --color-border: rgba(255, 255, 255, 0.12);
+  /* Glass */
+  --glass-bg: rgba(255, 255, 255, 0.07);
+  --glass-bg-hover: rgba(255, 255, 255, 0.12);
+  --glass-bg-card: rgba(255, 255, 255, 0.055);
+  --glass-border: rgba(255, 255, 255, 0.16);
+  --glass-border-subtle: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.35);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.2);
+  --glass-shadow-card: 0 4px 24px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.2);
+  --glass-shadow-hover: 0 16px 48px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.28);
 }
 
 /* ─── Register tokens as Tailwind utilities ─── */
@@ -45,10 +69,30 @@
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Fallback base behind wallpaper */
+  background: #000000;
+}
+
+/* ─── Wallpaper pseudo-element (always fixed behind content) ─── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  transition: background 0.5s ease;
+}
+
+[data-theme="dark"] body::before {
+  background: #000000;
+}
+
+[data-theme="light"] body::before {
+  background: #f5f5f7;
 }
 
 body {
-  background-color: var(--color-bg);
+  background: transparent;
   color: var(--color-primary);
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue",
     Helvetica, Arial, sans-serif;
@@ -58,7 +102,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition: color 0.3s ease;
 }
 
 h1,
@@ -83,7 +127,7 @@ a:hover {
 *:focus-visible {
   outline: 2px solid var(--color-accent);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: 4px;
 }
 
 img {
@@ -91,7 +135,128 @@ img {
   height: auto;
 }
 
-/* ─── Fade-in animation ─── */
+/* ═══════════════════════════════════════════════
+   LIQUID GLASS COMPONENT SYSTEM
+   ═══════════════════════════════════════════════ */
+
+/* Base glass surface */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(32px) saturate(180%);
+  -webkit-backdrop-filter: blur(32px) saturate(180%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+}
+
+/* Glass card panel */
+.glass-card {
+  background: var(--glass-bg-card);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid var(--glass-border-subtle);
+  box-shadow: var(--glass-shadow-card), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+}
+
+.glass-card:hover {
+  background: var(--glass-bg-hover);
+  box-shadow: var(--glass-shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border-color: var(--glass-border);
+}
+
+/* ─── Floating liquid glass navbar pill ─── */
+.glass-nav {
+  background: var(--glass-bg);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid var(--glass-border);
+  border-radius: 100px;
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep — refraction highlight drifting across the glass */
+.glass-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.07) 50%,
+    transparent 100%
+  );
+  animation: glass-shimmer 5s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Prismatic top-edge highlight (spectrum refraction) */
+.glass-nav::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 20%,
+    rgba(130, 200, 255, 0.4) 40%,
+    rgba(180, 130, 255, 0.4) 60%,
+    rgba(255, 255, 255, 0.5) 80%,
+    transparent 100%
+  );
+  border-radius: 100px 100px 0 0;
+  pointer-events: none;
+}
+
+/* Active nav link sliding indicator */
+.glass-indicator {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme="light"] .glass-indicator {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 12px rgba(31, 38, 135, 0.08);
+}
+
+/* ═══════════════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════════════ */
+
+/* Shimmer sweep across glass */
+@keyframes glass-shimmer {
+  0%   { left: -100%; }
+  55%  { left: 200%; }
+  100% { left: 200%; }
+}
+
+/* Navbar drops down from top on load with spring + blur */
+@keyframes nav-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-28px) scale(0.94);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+.animate-nav-slide-in {
+  animation: nav-slide-in 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;

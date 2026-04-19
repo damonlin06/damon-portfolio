@@ -11,13 +11,8 @@ export function Card({ project }: CardProps) {
   return (
     <Link
       href={`/portfolio/${project.slug}`}
-      className="group block rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-      style={{
-        backgroundColor: 'var(--color-surface)',
-        border: '1px solid var(--color-border)',
-        boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
-        textDecoration: 'none',
-      }}
+      className="glass-card group block rounded-2xl overflow-hidden"
+      style={{ textDecoration: 'none' }}
     >
       {/* 16:9 thumbnail */}
       <div className="relative w-full" style={{ paddingTop: '56.25%' }}>
@@ -26,13 +21,13 @@ export function Card({ project }: CardProps) {
             src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}${project.thumbnail}`}
             alt={project.title}
             fill
-            className="object-cover"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
         ) : (
           <div
             className="absolute inset-0 flex items-center justify-center"
-            style={{ backgroundColor: 'var(--color-border)' }}
+            style={{ backgroundColor: 'var(--glass-bg)' }}
           >
             <span className="text-xs" style={{ color: 'var(--color-secondary)' }}>
               No image
@@ -69,3 +64,4 @@ export function Card({ project }: CardProps) {
     </Link>
   );
 }
+

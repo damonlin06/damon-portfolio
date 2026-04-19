@@ -5,9 +5,7 @@ export default function HomePage() {
     <section
       className="flex-1 flex flex-col items-center justify-center text-center px-6 py-32"
       style={{
-        backgroundColor: 'var(--color-bg)',
-        color: 'var(--color-primary)',
-        minHeight: 'calc(100vh - var(--nav-height))',
+        minHeight: 'calc(100vh - var(--content-offset))',
       }}
     >
       <p
@@ -53,3 +51,4 @@ export default function HomePage() {
     </section>
   );
 }
+
