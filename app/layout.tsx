@@ -31,7 +31,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         <NavBar />
-        <main id="main-content" className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1" style={{ paddingTop: 'var(--content-offset)' }}>{children}</main>
         <Footer />
       </body>
     </html>
