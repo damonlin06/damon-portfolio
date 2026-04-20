@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { ReactNode, CSSProperties } from 'react';
 
-type Variant = 'primary' | 'secondary' | 'ghost';
+type Variant = 'primary' | 'secondary' | 'ghost' | 'liquid';
 
 interface ButtonProps {
   variant?: Variant;
@@ -13,6 +13,10 @@ interface ButtonProps {
   rel?: string;
   disabled?: boolean;
 }
+
+const variantClasses: Partial<Record<Variant, string>> = {
+  liquid: 'glass-btn',
+};
 
 const variantStyles: Record<Variant, CSSProperties> = {
   primary: {
@@ -47,10 +51,16 @@ const variantStyles: Record<Variant, CSSProperties> = {
     border: '1px solid var(--glass-border)',
     boxShadow: 'inset 0 1px 0 var(--glass-highlight)',
   },
+  liquid: {
+    padding: '8px 20px',
+    borderRadius: '980px',
+    fontSize: '17px',
+    fontWeight: 400,
+  },
 };
 
 const baseClass =
-  'inline-flex items-center justify-center transition-all duration-200 cursor-pointer';
+  'inline-flex items-center justify-center transition-all duration-200 cursor-pointer no-underline hover:no-underline';
 
 export function Button({
   variant = 'primary',
@@ -62,7 +72,8 @@ export function Button({
   rel,
   disabled,
 }: ButtonProps) {
-  const allClass = `${baseClass} hover:opacity-85 hover:scale-[1.02] active:scale-[0.98] ${className}`;
+  const variantClass = variantClasses[variant] ?? '';
+  const allClass = `${baseClass} hover:opacity-85 hover:scale-[1.02] active:scale-[0.98] ${variantClass} ${className}`;
   const style = variantStyles[variant];
 
   if (href) {

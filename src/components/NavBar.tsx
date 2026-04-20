@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { ThemeToggle } from '@/src/components/ThemeToggle';
 
 const navLinks = [
@@ -16,12 +16,13 @@ export function NavBar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
   const [indicatorStyle, setIndicatorStyle] = useState({ width: 0, left: 0, opacity: 0, transitionDuration: '0ms' });
+  const navRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<Map<string, HTMLLIElement>>(new Map());
   const isFirstRender = useRef(true);
 
   // Slide the glass indicator to the active nav link
-  useEffect(() => {
+  const updateIndicator = useCallback(() => {
     const activeLink = navLinks.find(
       ({ href }) => pathname === href || pathname.startsWith(href + '/')
     );
@@ -44,6 +45,23 @@ export function NavBar() {
     }
   }, [pathname]);
 
+  useEffect(() => {
+    updateIndicator();
+  }, [updateIndicator]);
+
+  useEffect(() => {
+    const handleLayoutChange = () => updateIndicator();
+    window.addEventListener('resize', handleLayoutChange);
+
+    const navEl = navRef.current;
+    navEl?.addEventListener('animationend', handleLayoutChange);
+
+    return () => {
+      window.removeEventListener('resize', handleLayoutChange);
+      navEl?.removeEventListener('animationend', handleLayoutChange);
+    };
+  }, [updateIndicator]);
+
   return (
     <header
       className="fixed inset-x-0 z-50 flex justify-center px-4 pointer-events-none"
@@ -51,14 +69,15 @@ export function NavBar() {
     >
       {/* Glass pill nav */}
       <nav
-        className="glass-nav flex items-center gap-2 px-3 animate-nav-slide-in pointer-events-auto"
+        ref={navRef}
+        className="glass-nav flex items-center gap-[0.6rem] px-[0.9rem] animate-nav-slide-in pointer-events-auto"
         style={{ height: 'var(--nav-height)' }}
         aria-label="Primary navigation"
       >
         {/* Logo */}
         <Link
           href="/"
-          className="font-semibold text-sm px-3 py-1.5 rounded-full transition-opacity hover:opacity-80"
+          className="font-semibold text-[1.05rem] px-[0.9rem] py-[0.45rem] rounded-full transition-opacity hover:opacity-80"
           style={{ color: 'var(--color-primary)', textDecoration: 'none' }}
         >
           Damon
@@ -66,7 +85,7 @@ export function NavBar() {
 
         {/* Divider */}
         <div
-          className="hidden md:block w-px h-4 mx-1 shrink-0"
+          className="hidden md:block w-px h-[1.2rem] mx-[0.3rem] shrink-0"
           style={{ backgroundColor: 'var(--glass-border)' }}
         />
 
@@ -75,7 +94,7 @@ export function NavBar() {
           {/* Sliding glass indicator */}
           <span
             aria-hidden="true"
-            className="glass-indicator absolute top-1/2 -translate-y-1/2 h-[34px] rounded-full pointer-events-none"
+            className="glass-indicator absolute top-1/2 -translate-y-1/2 h-[40.8px] rounded-full pointer-events-none"
             style={{
               width: indicatorStyle.width,
               left: indicatorStyle.left,
@@ -98,7 +117,7 @@ export function NavBar() {
                   <Link
                     href={href}
                     aria-current={isActive ? 'page' : undefined}
-                    className="text-sm px-4 py-2 rounded-full block transition-colors duration-200"
+                    className="text-[1.05rem] px-[1.2rem] h-[40.8px] leading-none rounded-full flex items-center justify-center transition-colors duration-200"
                     style={{
                       color: isActive ? 'var(--color-primary)' : 'var(--color-secondary)',
                       fontWeight: isActive ? 500 : 400,
@@ -115,29 +134,29 @@ export function NavBar() {
 
         {/* Divider */}
         <div
-          className="hidden md:block w-px h-4 mx-1 shrink-0"
+          className="hidden md:block w-px h-[1.2rem] mx-[0.3rem] shrink-0"
           style={{ backgroundColor: 'var(--glass-border)' }}
         />
 
         {/* Right controls */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-[0.3rem]">
           <ThemeToggle />
 
           {/* Hamburger — mobile only */}
           <button
-            className="md:hidden w-9 h-9 flex items-center justify-center rounded-full transition-opacity hover:opacity-70"
+            className="md:hidden w-[2.7rem] h-[2.7rem] flex items-center justify-center rounded-full transition-opacity hover:opacity-70"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={menuOpen}
             style={{ color: 'var(--color-primary)' }}
           >
             {menuOpen ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                 <line x1="18" y1="6" x2="6" y2="18" />
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
                 <line x1="3" y1="6" x2="21" y2="6" />
                 <line x1="3" y1="12" x2="21" y2="12" />
                 <line x1="3" y1="18" x2="21" y2="18" />
@@ -151,9 +170,9 @@ export function NavBar() {
       {menuOpen && (
         <div
           className="glass absolute left-4 right-4 rounded-2xl p-4 pointer-events-auto md:hidden"
-          style={{ top: 'calc(var(--nav-height) + var(--nav-top) + 8px)' }}
+          style={{ top: 'calc(var(--nav-height) + var(--nav-top) + 9.6px)' }}
         >
-          <ul className="flex flex-col gap-1 list-none m-0 p-0">
+          <ul className="flex flex-col gap-[0.3rem] list-none m-0 p-0">
             {navLinks.map(({ href, label }) => {
               const isActive = pathname === href || pathname.startsWith(href + '/');
               return (
@@ -162,7 +181,7 @@ export function NavBar() {
                     href={href}
                     onClick={() => setMenuOpen(false)}
                     aria-current={isActive ? 'page' : undefined}
-                    className="text-sm block px-4 py-3 rounded-xl transition-colors"
+                    className="text-[1.05rem] block px-[1.2rem] py-[0.9rem] rounded-xl transition-colors"
                     style={{
                       color: isActive ? 'var(--color-accent)' : 'var(--color-primary)',
                       fontWeight: isActive ? 500 : 400,

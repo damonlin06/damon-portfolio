@@ -2,8 +2,8 @@
 
 /* ─── Shared design tokens ─── */
 :root {
-  --nav-height: 52px;
-  --nav-top: 16px;
+  --nav-height: 62.4px;
+  --nav-top: 19.2px;
   --content-offset: calc(var(--nav-height) + var(--nav-top) + 16px);
 }
 
@@ -120,7 +120,7 @@ a {
   text-decoration: none;
 }
 
-a:hover {
+a:hover:not(.no-underline) {
   text-decoration: underline;
 }
 
@@ -162,6 +162,48 @@ img {
   background: var(--glass-bg-hover);
   box-shadow: var(--glass-shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.1);
   border-color: var(--glass-border);
+}
+
+/* ─── Floating liquid glass arrow buttons (portfolio prev/next) ─── */
+.glass-arrow {
+  background: var(--glass-bg);
+  backdrop-filter: blur(40px) saturate(220%);
+  -webkit-backdrop-filter: blur(40px) saturate(220%);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow-hover), inset 0 1px 0 var(--glass-highlight);
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.glass-arrow:hover {
+  background: var(--glass-bg-hover);
+  box-shadow: var(--glass-shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-50%) scale(1.08) !important;
+}
+
+.glass-arrow:active {
+  transform: translateY(-50%) scale(0.97) !important;
+}
+
+/* ─── Liquid glass back-link button (portfolio detail) ─── */
+.glass-back-link {
+  background: var(--glass-bg);
+  backdrop-filter: blur(32px) saturate(190%);
+  -webkit-backdrop-filter: blur(32px) saturate(190%);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-highlight);
+  padding: 0.5rem 0.9rem;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.glass-back-link:hover {
+  background: var(--glass-bg-hover);
+  box-shadow: var(--glass-shadow-hover), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.glass-back-link:active {
+  transform: translateY(0);
 }
 
 /* ─── Floating liquid glass navbar pill ─── */
@@ -228,6 +270,45 @@ img {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 12px rgba(31, 38, 135, 0.08);
 }
 
+/* ─── Liquid glass pill button (mirrors nav indicator style) ─── */
+.glass-btn {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(40px) saturate(200%);
+  -webkit-backdrop-filter: blur(40px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 8px rgba(0, 0, 0, 0.15);
+  color: var(--color-primary);
+  position: relative;
+  overflow: hidden;
+}
+
+[data-theme="light"] .glass-btn {
+  background: rgba(255, 255, 255, 0.7);
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 2px 12px rgba(31, 38, 135, 0.08);
+}
+
+/* Prismatic top-edge highlight matching glass-nav */
+.glass-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.5) 20%,
+    rgba(130, 200, 255, 0.4) 40%,
+    rgba(180, 130, 255, 0.4) 60%,
+    rgba(255, 255, 255, 0.5) 80%,
+    transparent 100%
+  );
+  border-radius: 980px 980px 0 0;
+  pointer-events: none;
+}
+
 /* ═══════════════════════════════════════════════
    ANIMATIONS
    ═══════════════════════════════════════════════ */
@@ -243,12 +324,12 @@ img {
 @keyframes nav-slide-in {
   from {
     opacity: 0;
-    transform: translateY(-28px) scale(0.94);
+    transform: translateY(-28px);
     filter: blur(6px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
     filter: blur(0px);
   }
 }
