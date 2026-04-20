@@ -48,6 +48,7 @@ export function ZoomableImage({ src, alt, width, height }: ZoomableImageProps) {
           height={height}
           className="w-full h-auto"
           style={{ borderRadius: '1rem', display: 'block' }}
+          priority
         />
       </div>
 

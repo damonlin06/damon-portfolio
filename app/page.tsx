@@ -43,7 +43,7 @@ export default function HomePage() {
       </p>
 
       <div className="flex flex-wrap gap-4 justify-center animate-fade-in-up-delay-3">
-        <Button href="/portfolio">View Portfolio</Button>
+        <Button href="/portfolio" variant="liquid">View Portfolio</Button>
         <Button href="/contact" variant="ghost">
           Contact Me
         </Button>

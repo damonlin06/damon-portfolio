@@ -24,9 +24,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ProjectDetailPage({ params }: Props) {
   const { slug } = await params;
-  const project = projects.find((p) => p.slug === slug);
+  const idx = projects.findIndex((p) => p.slug === slug);
+  const project = projects[idx];
 
   if (!project) notFound();
+
+  const prevProject = idx > 0 ? projects[idx - 1] : null;
+  const nextProject = idx < projects.length - 1 ? projects[idx + 1] : null;
 
   // Simple markdown-like renderer for the description field
   const renderDescription = (text: string) =>
@@ -148,12 +152,92 @@ export default async function ProjectDetailPage({ params }: Props) {
     });
 
   return (
+    <>
+      {/* ── Side navigation arrows ── */}
+      {prevProject && (
+        <Link
+          href={`/portfolio/${prevProject.slug}`}
+          aria-label={`Previous project: ${prevProject.title}`}
+          className="glass-arrow"
+          style={{
+            position: 'fixed',
+            left: 'max(0.75rem, calc(45% - 26.5rem))',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 40,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '2.75rem',
+            height: '2.75rem',
+            borderRadius: '50%',
+            textDecoration: 'none',
+            transition: 'background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease',
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ color: 'var(--color-primary)', transition: 'transform 0.2s ease' }}
+            aria-hidden="true"
+          >
+            <polyline points="15 18 9 12 15 6" />
+          </svg>
+        </Link>
+      )}
+
+      {nextProject && (
+        <Link
+          href={`/portfolio/${nextProject.slug}`}
+          aria-label={`Next project: ${nextProject.title}`}
+          className="glass-arrow"
+          style={{
+            position: 'fixed',
+            right: 'max(0.75rem, calc(45% - 26.5rem))',
+            top: '50%',
+            transform: 'translateY(-50%)',
+            zIndex: 40,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '2.75rem',
+            height: '2.75rem',
+            borderRadius: '50%',
+            textDecoration: 'none',
+            transition: 'background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease',
+          }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{ color: 'var(--color-primary)', transition: 'transform 0.2s ease' }}
+            aria-hidden="true"
+          >
+            <polyline points="9 18 15 12 9 6" />
+          </svg>
+        </Link>
+      )}
+
     <article className="max-w-3xl mx-auto px-6 py-20">
       {/* Back link */}
       <Link
         href="/portfolio"
-        className="inline-flex items-center gap-1 text-sm mb-10 transition-opacity hover:opacity-75"
-        style={{ color: 'var(--color-accent)', textDecoration: 'none' }}
+        className="glass-back-link inline-flex items-center gap-2 text-sm mb-10"
+        style={{ textDecoration: 'none', color: 'var(--color-primary)' }}
       >
         <span aria-hidden="true">←</span> Back to Portfolio
       </Link>
@@ -184,5 +268,6 @@ export default async function ProjectDetailPage({ params }: Props) {
       {/* Description */}
       <div className="mb-12">{renderDescription(project.description)}</div>
     </article>
+    </>
   );
 }
