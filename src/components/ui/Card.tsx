@@ -5,9 +5,10 @@ import { Tag } from './Tag';
 
 interface CardProps {
   project: Project;
+  priority?: boolean;
 }
 
-export function Card({ project }: CardProps) {
+export function Card({ project, priority = false }: CardProps) {
   return (
     <Link
       href={`/portfolio/${project.slug}`}
@@ -21,6 +22,7 @@ export function Card({ project }: CardProps) {
             src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ''}${project.thumbnail}`}
             alt={project.title}
             fill
+            priority={priority}
             className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
           />
