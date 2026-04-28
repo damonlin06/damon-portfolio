@@ -13,7 +13,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'project-one',
-    title: 'Finance Performance dbt Pipeline',
+    title: 'Finance Performance dbt Pipeline \& Tableau Dashboard',
     shortDescription:
       'Consolidated multi-channel financial data for Hong Kong and Taiwan, eliminating manual reconciliation and delivering a centralized, unified dashboard for finance and operations stakeholders.',
     description: `## Project Goals
@@ -31,7 +31,7 @@ Project owner & Data architect
 
 - Collaborated with cross-functional data owners and end-users to define and document technical data requirements.
 - Designed and implemented a 20+ model Medallion Architecture using dbt and Databricks.
-- Delivered a Tableau-ready exposure layer model, enabling data analysts to efficiently build dashboards.
+- Built and maintained Tableau dashboards for daily KPI reporting across Hong Kong and Taiwan teams
 
 ## Challenges & Solutions
 
@@ -43,6 +43,10 @@ S: Engineered a standardized ingestion pipeline and unified schema layer to esta
 ## Architecture Diagram
 
 ![Finance Performance dbt Pipeline — Medallion Architecture](/images/projects/finance_dbt_data_models.png)
+
+## Tableau Dashboard
+
+![Finance Performance Tableau Dashboard](/images/projects/finance_performance_dashboard.png)
 
 ## Benefits & Value
 
