@@ -30,4 +30,9 @@ export const skills: SkillCategory[] = [
     level: 'proficient',
     skills: ['Great Expectations', 'dbt tests'],
   },
+  {
+    category: 'Data Visualization & BI',
+    level: 'proficient',
+    skills: ['Tableau'],
+  },
 ];

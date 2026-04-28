@@ -28,7 +28,7 @@ export default function ResumePage() {
           Data Engineer
         </p>
         <p className="mt-4" style={{ color: 'var(--color-primary)', fontSize: '1.0625rem', lineHeight: 1.6, maxWidth: '60ch' }}>
-          Data Engineer with 7+ years of experience designing, building, and optimizing scalable ETL/ELT pipelines and cloud-based data platforms. Strong expertise in data pipeline development, hybrid cloud architecture, and large-scale infrastructure migrations. Proven track record of delivering reliable, high-performance solutions to complex data integration challenges. Active contributor to cross-regional APAC data initiatives, including team collaboration and mentorship.
+          Data Engineer with 7+ years of experience designing, building, and optimizing scalable ETL/ELT pipelines and cloud-based data platforms. Strong expertise in data pipeline development, hybrid cloud architecture, and large-scale infrastructure migrations. Experienced in translating data into actionable insights through Tableau dashboards and visualizations. Proven track record of delivering reliable, high-performance solutions to complex data integration challenges. Active contributor to cross-regional APAC data initiatives, including team collaboration and mentorship.
         </p>
       </header>
 
